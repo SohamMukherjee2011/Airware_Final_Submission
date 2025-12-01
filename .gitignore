@@ -2,3 +2,6 @@ airaware-companion
 agent_files
 venv
 build.sh
+analysis_outputs
+__pycache
+.env
