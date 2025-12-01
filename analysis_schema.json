@@ -1,0 +1,33 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "AQIAnalysis",
+    "type": "object",
+    "required": ["location", "current_aqi", "current_category",  "exposure_summary", "risk_score", "recommendations"],
+    "properties": {
+        "location": { "type": "string" },
+        "current_aqi": { "type": "integer" },
+        "current_category": { "type": "string" },
+        "exposure_summary": {
+            "type": "object",
+            "properties": {
+                "trip_exposure": { "type": ["number", "null"] },
+                "units": { "type": "string" }
+            },
+            "required": ["total_exposure", "today_exposure", "units"]
+        },
+        "risk_score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "recommendations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": { "type": "string" },
+                    "severity": { "type": "string" },
+                    "message": { "type": "string" },
+                    "recommended_window": { "type": ["string", "null"] }
+                },
+                "required": ["type", "severity", "message"]
+            }
+        }
+    }
+}
