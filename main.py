@@ -24,11 +24,7 @@ STATIC_DIR = next((p for p in FRONTEND_DIRS if p.exists()), None)
 # Environment keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
-ALLOWED_ORIGINS = os.getenv(
-    "ALLOWED_ORIGINS",
-    "http://localhost:5000,http://127.0.0.1:5000,http://localhost:8080"
-).split(",")
-
+ALLOWED_ORIGINS = "*"
 app = Flask(__name__, static_folder=None)
 CORS(app, resources={r"/api/*": {"origins": ALLOWED_ORIGINS}})
 app.secret_key = '$&@(*FH#%&RUIF#%())'
