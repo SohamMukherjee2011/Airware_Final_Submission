@@ -13,7 +13,7 @@ from realtime_weather import realtime_weather, geocode_city_to_latlon
 from analyzer import save_analysis_to_file, geminiForAnalysis, fetch_results
 import json
 load_dotenv()
-
+db.config()
 BASE_DIR = Path(__file__).resolve().parent
 FRONTEND_DIRS = [
     BASE_DIR / "frontend" / "dist",

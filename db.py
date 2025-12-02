@@ -1,19 +1,61 @@
 import mysql.connector
-
+import os
+import dotenv
+dotenv.load_dotenv()
+host = os.getenv("DATABASE_HOST")
+user = os.getenv("DATABASE_USER")
+password = os.getenv("DATABASE_PASSWORD")
+database = os.getenv("DATABASE_NAME")
 try:
     mydb = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Soham@12",
-        database="CAPSTONE",
+        host=host,
+        user=user,
+        password=password,
+        database=database,
         auth_plugin="mysql_native_password"
     )
 
+    
     cursor = mydb.cursor()
 
 except :
     print("Database connection error")
     raise
+def config():
+    dbList = []
+    cursor.execute('SHOW DATABASES')
+    for x in cursor:
+        dbList.append(x[0])
+        if "CAPSTONE" not in dbList:
+            cursor.execute("CREATE DATABASE CAPSTONE")
+            cursor.execute("USE CAPSTONE")
+            cursor.execute("""CREATE TABLE users (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    first_name VARCHAR(100) NULL,
+    last_name VARCHAR(100) NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    password VARCHAR(255) NULL,
+    location VARCHAR(255) NULL,
+
+    route_start_lat DECIMAL(10,7) NULL,
+    route_start_lng DECIMAL(10,7) NULL,
+    route_end_lat DECIMAL(10,7) NULL,
+    route_end_lng DECIMAL(10,7) NULL,
+
+    age_group ENUM('child','teen','adult','senior') NULL,
+    is_sensitive TINYINT(1) NULL,
+    morning_summary TINYINT(1) NULL DEFAULT 0,
+    threshold_alerts TINYINT(1) NULL DEFAULT 0,
+    commute_alerts TINYINT(1) NULL DEFAULT 0,
+    enable_notifications TINYINT(1) NULL DEFAULT 1,
+
+    PRIMARY KEY (id),
+    UNIQUE KEY (email)
+)""")
+    print('config complete')
+
 
 def showField(field, value):
     global cursor
