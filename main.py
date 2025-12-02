@@ -20,7 +20,8 @@ FRONTEND_DIRS = [
     BASE_DIR / "frontend" / "build"
 ]
 STATIC_DIR = next((p for p in FRONTEND_DIRS if p.exists()), None)
-
+import dotenv
+dotenv.load_dotenv()
 # Environment keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
@@ -476,5 +477,4 @@ def not_found(e):
 
 # ---- Run ----
 if __name__ == "__main__":
-    # Ensure debug during local dev: FLASK_DEBUG=1
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5000)), debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 10000)))
