@@ -11,8 +11,7 @@ try:
         host=host,
         user=user,
         password=password,
-        database=database,
-        auth_plugin="mysql_native_password"
+        database=database
     )
 
     

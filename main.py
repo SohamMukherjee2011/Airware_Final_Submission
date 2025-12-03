@@ -1,5 +1,3 @@
-import eventlet
-eventlet.monkey_patch()
 import os
 from pathlib import Path
 from datetime import datetime
@@ -479,8 +477,6 @@ def not_found(e):
 
 # ---- Run ----
 if __name__ == "__main__":
-
-
     socketio.run(
         app,
         host="0.0.0.0",
